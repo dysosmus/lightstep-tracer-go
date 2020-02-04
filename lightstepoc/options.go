@@ -72,6 +72,13 @@ func WithDefaultAttributes(attrs Attributes) Option {
 	}
 }
 
+// WithConfigurator directly configure all lightstep options
+func WithConfigurator(cfg func (opts lightstep.Options) lightstep.Options) Option {
+	return func(c *config) {
+		c.tracerOptions = cfg(c.tracerOptions)
+	}
+}
+
 type config struct {
 	tracerOptions lightstep.Options
 }
